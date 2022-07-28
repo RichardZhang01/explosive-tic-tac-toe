@@ -61,7 +61,7 @@ const TicTacGame = () => {
     };
 
     const Space=({num})=>{
-        return <td onClick={()=>handleClick(num)}>{spaces[num]}</td>
+        return <td style={{border: '2px solid black', width: '100px', height:'100px' }} onClick={()=>handleClick(num)}>{spaces[num]}</td>
     };
 
     const handleRestart=()=>{

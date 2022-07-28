@@ -68,11 +68,12 @@ db.once('open', () => {
     console.log(`user connected: ${socket.id}`);
 
     socket.on('joinRoom', (roomNum) => {
-      
+      socket.join(roomNum)
+      console.log(io.sockets.adapter.rooms.get(roomNum).size);
     })
   
     socket.on("sendMessage", (data) => {
-      io.emit("recieveMessage", data);
+      socket.to(data.room).emit("recieveMessage", data.message);
     });
 
   });

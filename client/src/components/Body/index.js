@@ -5,7 +5,7 @@ import Game from './Game';
 import Messager from './Messager';
 
 const Body = () => {  
-    if (Auth.loggedIn()) {
+    // if (Auth.loggedIn()) {
       return (
         //When the user is logged in, render the stuff
         <div>
@@ -13,14 +13,14 @@ const Body = () => {
             <Messager/>
         </div>
       )
-    } else {
-        return (
-            <div>
-                <p>This the main page</p>
-            </div>
-            //Render Main page (Althea)
-        );
-    }
+    // } else {
+    //     return (
+    //         <div>
+    //             <p>This the main page</p>
+    //         </div>
+    //         //Render Main page (Althea)
+    //     );
+    // }
   };
   
   export default Body;

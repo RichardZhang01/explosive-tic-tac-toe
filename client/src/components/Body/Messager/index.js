@@ -7,22 +7,36 @@ const socket = io.connect(process.env.NODE_ENV ? deployedUrl : localUrl);
 
 export default function Messager() {
     const [input, setInput] = useState('');
+    const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
+    console.log(socket)
 
     const sendMessage = () => {
         if (input) {
-            socket.emit('sendMessage', { message: input })
+            setMessages((prevMessages) => [...prevMessages, input]);
+            socket.emit('sendMessage', { message: input, room: room })
         }
     };
 
-    const handleChange = (e) => {
+    const handleMessage = (e) => {
         const message = e.target.value;
         setInput(message);
     };
 
+    const handleRoom = (e) => {
+        const roomNum = e.target.value;
+        setRoom(roomNum);
+    };
+
+    const joinRoom = (e) => {
+        if (room) {
+            socket.emit('joinRoom', room);
+        }
+    }
+
     useEffect(() => {
-        socket.on('recieveMessage', (data) =>{
-            setMessages((prevMessages) => [...prevMessages, data.message])
+        socket.on('recieveMessage', (message) =>{
+            setMessages((prevMessages) => [...prevMessages, message]);
         });
     }, [socket]);
 
@@ -33,12 +47,24 @@ export default function Messager() {
                 name='message'
                 type='text'
                 id='message'
-                onChange={handleChange}
+                onChange={handleMessage}
             />
             <button
                 onClick={sendMessage}
             >
                 Send
+            </button>
+            <input 
+                placeholder='Room'
+                name='room'
+                type='text'
+                id='room'
+                onChange={handleRoom}
+            />
+            <button
+                onClick={joinRoom}
+            >
+                Join Room
             </button>
             <div className='chat'>
                 {messages.map(message => {
