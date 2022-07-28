@@ -57,7 +57,7 @@ const TicTacGame = () => {
             setTurn("X")
         }
         checkWinner(squares)
-        setCells(squares)
+        setSpaces(squares)
     };
 
     const Space=({num})=>{
