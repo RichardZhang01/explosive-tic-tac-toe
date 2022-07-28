@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography } from '@mui/material'
-// import SignInDrawer from ''
+import MenuDrawer from '../MenuDrawer'
 
 
 
@@ -13,9 +13,10 @@ const Header = () => {
             <AppBar sx={{background: "Red"}}>
                 <Toolbar>   
                 
-                <Typography sx={{ fontSize: 50 }}> Explosive Tic-Tac-Toe </Typography>
 
-                {/* <SignInDrawer/> */}
+                <Typography sx={{ fontSize: 50 }}> Explosive Tic-Tac-Toe </Typography>
+                <MenuDrawer/>
+              
               
               
                 </Toolbar>
