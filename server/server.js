@@ -69,6 +69,7 @@ db.once('open', () => {
 
     socket.on('joinRoom', (roomNum) => {
       socket.join(roomNum)
+      console.log(io.sockets.adapter.rooms.get(roomNum).size);
     })
   
     socket.on("sendMessage", (data) => {

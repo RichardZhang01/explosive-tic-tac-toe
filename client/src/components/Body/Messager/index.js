@@ -9,6 +9,7 @@ export default function Messager() {
     const [input, setInput] = useState('');
     const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
+    console.log(socket)
 
     const sendMessage = () => {
         if (input) {
