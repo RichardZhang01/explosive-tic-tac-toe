@@ -66,7 +66,14 @@ db.once('open', () => {
   // socket.io connection event handler
   io.on("connection", (socket) => {
     console.log(`user connected: ${socket.id}`);
+
+    socket.on('joinRoom', (roomNum) => {
+      
+    })
   
-    socket.on("test", (data) => console.log(data))
+    socket.on("sendMessage", (data) => {
+      io.emit("recieveMessage", data);
+    });
+
   });
 });
