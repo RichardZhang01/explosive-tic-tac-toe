@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "explosive-tic-tac-toe",
   "version": "1.0.0",
-  "description": "",
+  "description": "A real time application that allows users to play tic-tac-toe and chat with a friend",
   "main": "server/server.js",
   "scripts": {
     "start": "node server --ignore client",
@@ -11,8 +11,8 @@
     "build": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Althea Hanson, John Medeiros, Richard Zhang",
+  "license": "MIT",
   "devDependencies": {
     "concurrently": "^5.1.0"
   }
