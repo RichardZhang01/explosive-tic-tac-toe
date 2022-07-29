@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from "react"
 import Box from '@mui/material/Box';
 
-const TicTacGame = () => {
+const TicTacGame = (props) => {
     const [turn, setTurn] = useState('X');
     const [spaces, setSpaces] = useState(Array(9).fill(''));
     const [winner, setWinner]= useState()
@@ -50,10 +50,14 @@ const TicTacGame = () => {
         }
         let squares=[...spaces]
         if(turn==="X"){
+            props.mindoroHandler(true)
+            props.corregidorHandler(false)
             squares[num]="X"
             setTurn("O")
         }
         else{
+            props.mindoroHandler(false);
+            props.corregidorHandler(true);
             squares[num]="O"
             setTurn("X")
         }

@@ -59,7 +59,7 @@ function App() {
               element={<LoginForm />} 
             />
             <Route 
-              path='/game'
+              path='/game/:roomId'
               element={<Game />}
             />
           </Routes>

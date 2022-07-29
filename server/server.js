@@ -67,10 +67,22 @@ db.once('open', () => {
   io.on("connection", (socket) => {
     console.log(`user connected: ${socket.id}`);
 
-    socket.on('joinRoom', (roomNum) => {
-      socket.join(roomNum)
-      console.log(io.sockets.adapter.rooms.get(roomNum).size);
-    })
+    socket.on('joinRoom', (roomNum, callback) => {
+      console.log(roomNum);
+      console.log(io.sockets.adapter.rooms.get(roomNum)?.size || 0);
+      const numInRoom = io.sockets.adapter.rooms.get(roomNum)?.size || 0;
+      if (numInRoom <= 1) {
+        socket.join(roomNum.toString());
+        callback({
+          status: "ok"
+        });
+      };
+      if (numInRoom >= 2) {
+        callback({
+          status: "full"
+        });
+      };
+    });
   
     socket.on("sendMessage", (data) => {
       socket.to(data.room).emit("recieveMessage", data.message);
