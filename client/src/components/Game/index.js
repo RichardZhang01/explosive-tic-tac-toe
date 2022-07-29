@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState} from "react"
+import Box from '@mui/material/Box';
 
 const TicTacGame = () => {
     const [turn, setTurn] = useState('X');
@@ -71,6 +72,7 @@ const TicTacGame = () => {
 
     return (
         //Change layout as needed
+        <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
         <div className='container'>
             <div>
                <h3>Are you ready for your game?</h3>
@@ -102,6 +104,7 @@ const TicTacGame = () => {
                 </>
             )}
         </div>
+        </Box>
       )
 };
 

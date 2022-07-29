@@ -1,0 +1,10 @@
+.SignUpForm {
+    padding: 20px;
+  }
+  
+  .SignUpForm input {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 20px;
+    padding: 4px;
+  }

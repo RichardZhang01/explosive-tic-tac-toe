@@ -40,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <SocketContext.Provider value={socket}>
         <Router>
-          {/* <Header/> */}
+          <Header/>
           <Routes>
             <Route 
               path='/'
