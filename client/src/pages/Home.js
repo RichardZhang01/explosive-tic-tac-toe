@@ -1,26 +1,52 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom'
 import Game from '../components/Game';
-import Messager from '../components/Messager';
+import { SocketContext } from '../utils/socket'
 
-const Body = () => {  
-    // if (Auth.loggedIn()) {
-      return (
-        //When the user is logged in, render the stuff
+
+export default function Home() {
+  const socket = useContext(SocketContext);  
+  const [roomId, setRoomId] = useState('');
+
+  const changeHandler = (e) => {
+    const room = e.target.value;
+    setRoomId(room);
+  }
+
+  return (
+    <>
+      {/* {Auth.loggedIn() ? (
         <div>
-            <Game/>
-            <Messager/>
+          <h1>Welcome to Explosive Tic-Tac-Toe</h1>
+          <h3>To get started, please log in or sign up</h3>
+          <Link to='/login'>
+            Log In
+          </Link>
+          <Link to='signup'>
+            Sign Up
+          </Link>
         </div>
-      )
-    // } else {
-    //     return (
-    //         <div>
-    //             <p>This the main page</p>
-    //         </div>
-    //         //Render Main page (Althea)
-    //     );
-    // }
-  };
+      ) : ( */}
+        <div>
+          <input 
+            placeholder='Room ID'
+            name='roomId'
+            type='text'
+            id='roomId'
+            onChange={changeHandler}
+          />
+          <button>
+            Join Room
+          </button>
+          <button>
+            Create Room
+          </button>
+        </div>
+      {/* )} */}
+    </>
+  )
+
+};
   
-  export default Body;
