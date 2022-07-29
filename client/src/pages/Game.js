@@ -20,8 +20,13 @@ export default function Game() {
 
     return (
         <div>
-            {!Auth.loggedIn() && (<Navigate to='/login' replace={true} />)}
-            <TicTacGame room={roomId} mindoroHandler={setIsMindoro} corregidorHandler ={setIsCorregidor}/>
+            {/* {!Auth.loggedIn() && (<Navigate to='/login' replace={true} />)} */}
+            <h1>{`Your room ID is: ${roomId}`}</h1>
+            <TicTacGame 
+                room={roomId} 
+                mindoroHandler={setIsMindoro} 
+                corregidorHandler={setIsCorregidor}
+            />
             {isMindoro && <Mindoro size={500} delay={0} repeatDelay={0} repeat={0} />}
             {isCorregidor && <Corregidor size={500} color="blue" delay={0} repeatDelay={0} repeat={0} />}
             <Chat room={roomId} />

@@ -3,12 +3,10 @@ import { SocketContext } from '../../utils/socket'
 
 export default function Messager(props) {
     const [input, setInput] = useState('');
-    const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
+    const room = props.room
 
     const socket = useContext(SocketContext);
-    console.log(socket);
-    console.log(props.room)
 
     const sendMessage = () => {
         if (input) {
@@ -21,17 +19,6 @@ export default function Messager(props) {
         const message = e.target.value;
         setInput(message);
     };
-
-    const handleRoom = (e) => {
-        const roomNum = e.target.value;
-        setRoom(roomNum);
-    };
-
-    const joinRoom = () => {
-        if (room) {
-            socket.emit('joinRoom', room);
-        }
-    }
 
     useEffect(() => {
         socket.on('recieveMessage', (message) =>{
@@ -53,22 +40,10 @@ export default function Messager(props) {
             >
                 Send
             </button>
-            <input 
-                placeholder='Room'
-                name='room'
-                type='text'
-                id='room'
-                onChange={handleRoom}
-            />
-            <button
-                onClick={joinRoom}
-            >
-                Join Room
-            </button>
             <div className='chat'>
-                {messages.map(message => {
+                {messages.map((message, i) => {
                     return (
-                        <div>
+                        <div key={i}>
                             {message}
                         </div>
                     )
