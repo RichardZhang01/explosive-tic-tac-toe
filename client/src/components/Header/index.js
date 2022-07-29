@@ -2,10 +2,7 @@ import React from 'react'
 import { AppBar, Toolbar, Typography } from '@mui/material'
 import MenuDrawer from '../MenuDrawer'
 
-
-
-
-const Header = () => {
+export default function Header() {
 
     return (
         <React.Fragment>
@@ -26,4 +23,3 @@ const Header = () => {
         </React.Fragment>
     )
 }
-export default Header

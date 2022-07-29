@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-
 import { checkPassword, validateEmail } from '../utils/helpers';
 
-function Form() {
+export default function SignUpForm() {
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -79,5 +78,3 @@ function Form() {
     </div>
   );
 }
-
-export default Form;
