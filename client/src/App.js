@@ -7,6 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { SocketContext, socket } from './utils/socket';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import SignUpForm from './pages/SignUpForm'
@@ -37,32 +38,34 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        {/* <Header/> */}
-        <Routes>
-          <Route 
-            path='/'
-            element={<Home />}
-          />
-          <Route 
-            path="/profile" 
-            element={<Profile />} 
-          />
-          <Route 
-            path="/signup" 
-            element={<SignUpForm />} 
-          />
-          <Route 
-            path="/login" 
-            element={<LoginForm />} 
-          />
-          <Route 
-            path='/game'
-            element={<Game />}
-          />
-        </Routes>
-        <Footer/>
-      </Router>
+      <SocketContext.Provider value={socket}>
+        <Router>
+          {/* <Header/> */}
+          <Routes>
+            <Route 
+              path='/'
+              element={<Home />}
+            />
+            <Route 
+              path="/profile" 
+              element={<Profile />} 
+            />
+            <Route 
+              path="/signup" 
+              element={<SignUpForm />} 
+            />
+            <Route 
+              path="/login" 
+              element={<LoginForm />} 
+            />
+            <Route 
+              path='/game'
+              element={<Game />}
+            />
+          </Routes>
+          <Footer/>
+        </Router>
+      </SocketContext.Provider>
     </ApolloProvider>
   );
 }

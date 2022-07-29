@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client'
-
-const localUrl = 'http://localhost:3001'
-const deployedUrl = '';
-const socket = io.connect(process.env.NODE_ENV ? deployedUrl : localUrl);
+import React, { useState, useEffect, useContext } from 'react';
+import { SocketContext } from '../../utils/socket'
 
 export default function Messager() {
     const [input, setInput] = useState('');
     const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
+
+    const socket = useContext(SocketContext);
     console.log(socket)
 
     const sendMessage = () => {
