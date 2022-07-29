@@ -26,7 +26,7 @@ export default function Messager() {
         setRoom(roomNum);
     };
 
-    const joinRoom = (e) => {
+    const joinRoom = () => {
         if (room) {
             socket.emit('joinRoom', room);
         }

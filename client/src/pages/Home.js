@@ -1,19 +1,45 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React, { useState, useContext } from 'react';
 import Auth from '../utils/auth';
-import { Link } from 'react-router-dom'
-import Game from '../components/Game';
+import { Link, useNavigate } from 'react-router-dom'
+import Game from '../components/TicTacGame';
 import { SocketContext } from '../utils/socket'
 
 
 export default function Home() {
   const socket = useContext(SocketContext);  
   const [roomId, setRoomId] = useState('');
+  const [isFull, setIsFull] = useState(false);
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     const room = e.target.value;
     setRoomId(room);
-  }
+  };
+
+  const joinGame = () => {
+    setIsFull(false);
+    if (roomId) {
+      socket.emit('joinRoom', roomId, (response) => {
+        if (response.status === "ok") {
+          navigate(`/game/${roomId}`);
+        } else if (response.status === 'full') {
+          setIsFull(true);
+        }
+      });
+    };
+  };
+
+  const createGame = () => {
+    const randomRoom = Math.floor(Math.random() * 90000) + 10000;
+    socket.emit('joinRoom', randomRoom, (response) => {
+      if (response.status === "ok") {
+        navigate(`/game/${randomRoom}`);
+      } else if (response.status === 'full') {
+        setIsFull(true);
+      }
+    });
+  };
 
   return (
     <>
@@ -30,6 +56,7 @@ export default function Home() {
         </div>
       ) : ( */}
         <div>
+          {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The Room you are trying to join is full</h1>}
           <input 
             placeholder='Room ID'
             name='roomId'
@@ -37,11 +64,11 @@ export default function Home() {
             id='roomId'
             onChange={changeHandler}
           />
-          <button>
-            Join Room
+          <button onClick={joinGame}>
+            Join Game
           </button>
-          <button>
-            Create Room
+          <button onClick={createGame}>
+            Create Game
           </button>
         </div>
       {/* )} */}

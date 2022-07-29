@@ -1,11 +1,12 @@
 import React from 'react';
 import Chat from '../components/Chat'
-import Game from '../components/Game'
+import TicTacGame from '../components/TicTacGame'
 
 export default function Game() {
+
     return (
         <>
-            <Game />
+            <TicTacGame />
             <Chat />
         </>
     )
