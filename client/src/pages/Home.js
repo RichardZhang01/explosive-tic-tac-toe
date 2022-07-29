@@ -1,6 +1,6 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React, { useState, useContext } from 'react';
-import Auth from '../utils/auth';
+import Auth from '../utils/auth.js';
 import { Link, useNavigate } from 'react-router-dom'
 import Game from '../components/TicTacGame';
 import { SocketContext } from '../utils/socket'
@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <>
-      {/* {Auth.loggedIn() ? (
+      {/* {!Auth.loggedIn() ? (
         <div>
           <h1>Welcome to Explosive Tic-Tac-Toe</h1>
           <h3>To get started, please log in or sign up</h3>

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState} from "react"
 
-const TicTacGame = () => {
+const TicTacGame = (props) => {
     const [turn, setTurn] = useState('X');
     const [spaces, setSpaces] = useState(Array(9).fill(''));
     const [winner, setWinner]= useState()

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SocketContext } from '../../utils/socket'
 
-export default function Messager() {
+export default function Messager(props) {
     const [input, setInput] = useState('');
     const [room, setRoom] = useState('');
     const [messages, setMessages] = useState([]);
 
     const socket = useContext(SocketContext);
-    console.log(socket)
+    console.log(socket);
+    console.log(props.room)
 
     const sendMessage = () => {
         if (input) {
