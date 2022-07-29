@@ -49,10 +49,14 @@ const TicTacGame = (props) => {
         }
         let squares=[...spaces]
         if(turn==="X"){
+            props.mindoroHandler(true)
+            props.corregidorHandler(false)
             squares[num]="X"
             setTurn("O")
         }
         else{
+            props.mindoroHandler(false);
+            props.corregidorHandler(true);
             squares[num]="O"
             setTurn("X")
         }
