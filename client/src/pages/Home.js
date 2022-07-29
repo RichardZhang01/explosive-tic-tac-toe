@@ -1,7 +1,7 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React from 'react';
 import Auth from '../utils/auth';
-import Game from '../components/Game';
+import Game from '../components/TicTacGame';
 import Messager from '../components/Messager';
 
 const Body = () => {  
