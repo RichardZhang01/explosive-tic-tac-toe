@@ -15,6 +15,7 @@ import LoginForm from './pages/LoginForm'
 import Profile from './pages/Profile'
 import Game from './pages/Game'
 import Home from './pages/Home'
+import OOB from './pages/OOB'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -61,6 +62,10 @@ function App() {
             <Route 
               path='/game/:roomId'
               element={<Game />}
+            />
+            <Route 
+              path='*'
+              element={<OOB />}
             />
           </Routes>
           <Footer/>
