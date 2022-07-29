@@ -37,11 +37,8 @@ export default function SignUpForm() {
       );
       return;
     }
-    alert(`Hello ${userName}`);
-
-    setUserName('');
-    setPassword('');
-    setEmail('');
+    //Add User to DB, Log in for them, redirect to home page if successful
+    
   };
 
   return (
