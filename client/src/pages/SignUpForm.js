@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
+import Box from '@mui/material/Box';
 import { checkPassword, validateEmail } from '../utils/helpers';
+import '../assets/styles/SignUp.css'
 
 export default function SignUpForm() {
   const [email, setEmail] = useState('');
@@ -44,9 +45,10 @@ export default function SignUpForm() {
   };
 
   return (
+    <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
     <div>
       <p>Hello {userName}</p>
-      <form className="form">
+      <form className="SignUpForm">
         <input
           value={email}
           name="email"
@@ -76,5 +78,6 @@ export default function SignUpForm() {
         </div>
       )}
     </div>
+    </Box>
   );
 }
