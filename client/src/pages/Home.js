@@ -1,8 +1,8 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React from 'react';
-import Auth from '../../utils/auth';
-import Game from './Game';
-import Messager from './Messager';
+import Auth from '../utils/auth';
+import Game from '../components/Game';
+import Messager from '../components/Messager';
 
 const Body = () => {  
     // if (Auth.loggedIn()) {

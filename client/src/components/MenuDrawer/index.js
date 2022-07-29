@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-
-import { Drawer, Link, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SignUpForm from '../../pages/SignUpForm'
-
-
-
-
-
 
 const MenuDrawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -21,10 +16,19 @@ const MenuDrawer = () => {
           <ListItemButton sx={{ textAlign: 'Center' }} onClick={() => setOpenDrawer(false)}>
             <ListItemIcon>
               <ListItemText>
-                <Link> Log In </Link>
+                <Link
+                  to='/login'
+                > 
+                  Log In 
+                </Link>
                 <br/>
                 <br/>
-                <Link>{SignUpForm} Sign Up </Link>
+                <Link
+                  to='/signup'
+                >
+                  {/* {SignUpForm}  */}
+                  Sign Up 
+                </Link>
               </ListItemText>
             </ListItemIcon>
           </ListItemButton>
