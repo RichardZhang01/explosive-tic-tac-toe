@@ -50,7 +50,7 @@ export default function Home() {
           <Link to='/login'>
             Log In
           </Link>
-          <Link to='signup'>
+          <Link to='/signup'>
             Sign Up
           </Link>
         </div>
