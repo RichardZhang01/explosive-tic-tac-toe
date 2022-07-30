@@ -85,6 +85,7 @@ db.once('open', () => {
     });
   
     socket.on("sendMessage", (data) => {
+      console.log(data);
       socket.to(data.room).emit("recieveMessage", data.message);
     });
 
