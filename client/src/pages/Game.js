@@ -24,11 +24,11 @@ export default function Game() {
 
     return (
         
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
             {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
-            <h1>{`Your room ID is: ${roomId}`}</h1>
             <TicTacGame 
-                room={roomId} 
+                room={roomId}
+                user={user} 
                 mindoroHandler={setIsMindoro} 
                 corregidorHandler={setIsCorregidor}
             />
