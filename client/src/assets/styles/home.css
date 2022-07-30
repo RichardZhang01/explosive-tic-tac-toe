@@ -1,0 +1,13 @@
+.home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+h1, h3{
+   color: red;
+}
+body{
+    background-image: url("https://acegif.com/wp-content/uploads/gif-explosion-27.gif");
+    background-color: black;
+}

@@ -16,6 +16,8 @@ import Profile from './pages/Profile'
 import Game from './pages/Game'
 import Home from './pages/Home'
 import OOB from './pages/OOB'
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const httpLink = createHttpLink({
   uri: '/graphql',
