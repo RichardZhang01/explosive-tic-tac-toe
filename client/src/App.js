@@ -44,7 +44,7 @@ function App() {
           {/* <Header/> */}
           <Routes>
             <Route 
-              path='/'
+              exact path='/'
               element={<Home />}
             />
             <Route 

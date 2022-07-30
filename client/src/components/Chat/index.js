@@ -1,33 +1,53 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SocketContext } from '../../utils/socket'
 
-export default function Messager(props) {
-    const [input, setInput] = useState('');
+export default function Chat(props) {
+    const user = props.user.user;
+    const [input, setInput] = useState({
+        user: user.username,
+        message: ''
+    });
     const [messages, setMessages] = useState([]);
-    const room = props.room
+    const room = props.room;
 
     const socket = useContext(SocketContext);
 
     const sendMessage = () => {
         if (input) {
-            setMessages((prevMessages) => [...prevMessages, input]);
+            setMessages((prevMessages) => [input, ...prevMessages]);
             socket.emit('sendMessage', { message: input, room: room })
         }
     };
 
     const handleMessage = (e) => {
         const message = e.target.value;
-        setInput(message);
+        setInput(prevMessage => {
+            return { ...prevMessage, message: message}
+        });
     };
 
     useEffect(() => {
         socket.on('recieveMessage', (message) =>{
-            setMessages((prevMessages) => [...prevMessages, message]);
+            setMessages((prevMessages) => [message, ...prevMessages]);
         });
     }, [socket]);
 
     return (
-        <section>
+        <section style={{ display: 'flex-column'}}>
+            <div className='chat' style={{ height: '400px', width: '300px', overflow: 'auto', border: 'gray solid 1px'}}>
+                <div style={{ display: 'flex-column', alignItems: 'start', justifyContent: 'end' }}>
+                    {messages.map((message, i) => {
+                        return (
+                            <div key={i}>
+                                <p style={{ marginBottom: '0', paddingBottom: '0' }}>{message.message}</p>
+                                <p style={{ marginBottom: '0', paddingBottom: '0' }}>
+                                    <small>{message.user == user.username ? 'You' : message.user}</small>
+                                </p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
             <input 
                 placeholder='message'
                 name='message'
@@ -40,15 +60,6 @@ export default function Messager(props) {
             >
                 Send
             </button>
-            <div className='chat'>
-                {messages.map((message, i) => {
-                    return (
-                        <div key={i}>
-                            {message}
-                        </div>
-                    )
-                })}
-            </div>
         </section>
     )
 }

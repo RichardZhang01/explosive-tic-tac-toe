@@ -14,6 +14,7 @@ export default function Home() {
 
   const changeHandler = (e) => {
     const room = e.target.value;
+    setIsFull(false);
     setRoomId(room);
   };
 
@@ -56,7 +57,7 @@ export default function Home() {
         </div>
       ) : (
         <div>
-          {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The Room you are trying to join is full</h1>}
+          {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The room you are trying to join is full</h1>}
           <input 
             placeholder='Room ID'
             name='roomId'
