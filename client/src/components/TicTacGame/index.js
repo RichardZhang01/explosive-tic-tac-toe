@@ -79,6 +79,7 @@ const TicTacGame = (props) => {
         <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
         <div className='container'>
             <div>
+                <h1>{`Your room ID is: ${props.room}`}</h1>
                <h3>Are you ready for your game?</h3>
             </div>
             
