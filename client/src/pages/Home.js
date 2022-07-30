@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <>
-      {/* {!Auth.loggedIn() ? (
+      {!Auth.loggedIn() ? (
         <div>
           <h1>Welcome to Explosive Tic-Tac-Toe</h1>
           <h3>To get started, please log in or sign up</h3>
@@ -54,7 +54,7 @@ export default function Home() {
             Sign Up
           </Link>
         </div>
-      ) : ( */}
+      ) : (
         <div>
           {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The Room you are trying to join is full</h1>}
           <input 
@@ -71,7 +71,7 @@ export default function Home() {
             Create Game
           </button>
         </div>
-      {/* )} */}
+      )}
     </>
   )
 

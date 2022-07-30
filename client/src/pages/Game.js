@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Chat from '../components/Chat'
 import TicTacGame from '../components/TicTacGame'
 import Auth from '../utils/auth'
-import { useNavigate, useParams, Navigate } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
 import Mindoro from 'react-explode/Mindoro';
 import Corregidor from 'react-explode/Corregidor';
 
@@ -12,15 +12,10 @@ export default function Game() {
     const [isCorregidor, setIsCorregidor] = useState(false);
 
     const { roomId } = useParams();
-    // const navigate = useNavigate();
-
-    // if (!Auth.loggedIn()) {
-    //     this.props.history.push('login')
-    // }
 
     return (
         <div>
-            {/* {!Auth.loggedIn() && (<Navigate to='/login' replace={true} />)} */}
+            {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
             <h1>{`Your room ID is: ${roomId}`}</h1>
             <TicTacGame 
                 room={roomId} 
