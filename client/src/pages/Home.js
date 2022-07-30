@@ -4,6 +4,8 @@ import Auth from '../utils/auth.js';
 import { Link, useNavigate } from 'react-router-dom'
 import Game from '../components/TicTacGame';
 import { SocketContext } from '../utils/socket'
+import Box from '@mui/material/Box';
+import home from '../assets/styles/home.css'
 
 
 export default function Home() {
@@ -43,17 +45,19 @@ export default function Home() {
   };
 
   return (
+    <Box component="main" sx={{  flexGrow: 1, py: 15,  }}>
     <>
       {!Auth.loggedIn() ? (
-        <div>
+        <div className='home'>
           <h1>Welcome to Explosive Tic-Tac-Toe</h1>
+          
           <h3>To get started, please log in or sign up</h3>
-          <Link to='/login'>
+          {/* <Link to='/login'>
             Log In
           </Link>
           <Link to='/signup'>
             Sign Up
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <div>
@@ -74,6 +78,7 @@ export default function Home() {
         </div>
       )}
     </>
+    </Box>
   )
 
 };
