@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SignUpForm from '../../pages/SignUpForm'
+import Auth from '../../utils/auth'
 
 const MenuDrawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -16,19 +16,28 @@ const MenuDrawer = () => {
           <ListItemButton sx={{ textAlign: 'Center' }} onClick={() => setOpenDrawer(false)}>
             <ListItemIcon>
               <ListItemText>
-                <Link
-                  to='/login'
-                > 
+              {!Auth.loggedIn() ? (
+                <div>
+                  <Link
+                    to='/login'
+                  > 
                   Log In 
-                </Link>
-                <br/>
-                <br/>
-                <Link
-                  to='/signup'
-                >
-                  {/* {SignUpForm}  */}
+                  </Link>
+                  <br/>
+                  <br/>
+                  <Link
+                    to='/signup'
+                  >
                   Sign Up 
-                </Link>
+                  </Link>
+                </div>
+              ) : (
+                <div>
+                  <br/>
+                  <br/>
+                  <button onClick={()=>Auth.logout()}>Log Out</button>
+                </div>
+              )}
               </ListItemText>
             </ListItemIcon>
           </ListItemButton>
