@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import "../assets/styles/SignIn.css";
 
 function LoginForm (props) {
     const [formState, setFormState] = useState({ email: '', password: '' });
@@ -42,7 +43,7 @@ function LoginForm (props) {
     };
     
     return (
-        <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
+        <Box component="main" sx={{  flexGrow: 1, py: 15,  }}>
           {Auth.loggedIn() && (<Navigate to='/' replace={true} />)}
           {data ? (
             <p>

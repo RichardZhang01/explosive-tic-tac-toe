@@ -50,7 +50,7 @@ export default function Home() {
       {!Auth.loggedIn() ? (
         <div className='home'>
           <h1>Welcome to Explosive Tic-Tac-Toe</h1>
-          
+          <br/>
           <h3>To get started, please log in or sign up</h3>
           {/* <Link to='/login'>
             Log In
