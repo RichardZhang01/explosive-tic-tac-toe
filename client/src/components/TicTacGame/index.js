@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 import { SocketContext } from '../../utils/socket'
 import Box from '@mui/material/Box';
+import '../../assets/styles/TicTacGame.css'
 
 const TicTacGame = (props) => {
     const [turn, setTurn] = useState('X');
@@ -105,9 +106,9 @@ const TicTacGame = (props) => {
 
     return (
         //Change layout as needed
-        <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
+        <Box component="main" sx={{  flexGrow: 1,  background:"#EDEDED", height:"100vh" }}>
         <div className='container'>
-            <div>
+            <div className="gameSettings">
                 <h1>{`Your room ID is: ${props.room}`}</h1>
                 {isPlayerX ? <h2>You are player X</h2> : <h2>You are player Y</h2>}
                 {hasGameStarted ? <h3>Game Start!</h3> : <h3>Waiting for opponent...</h3>}
