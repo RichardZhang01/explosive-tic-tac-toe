@@ -84,8 +84,8 @@ function Header(props) {
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {!Auth.loggedIn() ? (
             navItems.map((item) => (
-              <NavLink to={item}>  
-                <Button key={item} sx={{ color: '#fff' }}>
+              <NavLink key={item} to={item}>  
+                <Button sx={{ color: '#fff' }}>
                   {item}
                 </Button> 
               </NavLink>))

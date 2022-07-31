@@ -18,14 +18,16 @@ export default function Game() {
 
     if (loading) {
         return (
-            <h1>loading...</h1>
+            <div>
+                {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
+                <h1>loading...</h1>
+            </div>
         )
     }
 
     return (
         <div>
             <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
-                {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
                 <TicTacGame 
                     room={roomId}
                     user={user} 

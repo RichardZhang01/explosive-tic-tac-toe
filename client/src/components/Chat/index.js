@@ -45,6 +45,16 @@ export default function Chat(props) {
         });
     }, [socket]);
 
+    const backgroundColor = (isUser, user) => {
+        if (isUser) {
+            return 'rgb(129, 0, 50)'
+        } else if (user === 'server') {
+            return 'rgb(39, 39, 187)'
+        } else {
+            return 'rgb(3, 112, 3)'
+        }
+    }
+
     return (
         <section className='chat'>
             <div className='chat--window'>
@@ -56,8 +66,7 @@ export default function Chat(props) {
                                 className='chat--message--container'
                                 style={{ 
                                     alignSelf: `${isUser ? 'start' : 'end'}`,
-                                    color: `${isUser ? 'black' : 'white'}`,
-                                    backgroundColor: `${isUser ? 'skyblue' : 'rgb(5, 139, 5)'}`
+                                    backgroundColor: backgroundColor(isUser, message.user),
                                 }} 
                                 key={i}
                             >

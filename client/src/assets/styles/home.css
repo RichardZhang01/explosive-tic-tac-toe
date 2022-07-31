@@ -9,5 +9,8 @@ h1, h3{
 }
 body{
     background-image: url("https://acegif.com/wp-content/uploads/gif-explosion-27.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     background-color: black;
 }
