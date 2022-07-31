@@ -48,7 +48,6 @@ function LoginForm (props) {
           {data ? (
             <p>
               Success! Redirecting to homepage...
-              {/* <Link to="/">back to the homepage.</Link> */}
             </p>
           ) : (
             <div>

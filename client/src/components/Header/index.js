@@ -17,6 +17,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { NavLink } from 'react-router-dom';
+import Auth from '../../utils/auth'
 
 
 const drawerWidth = 240;
@@ -37,13 +38,23 @@ function Header(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
-            <NavLink to={item}>  <ListItemText primary={item} /> </NavLink>
+        {!Auth.loggedIn() ? (
+          navItems.map((item) => (
+            <ListItem key={item} disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <NavLink to={item}>  
+                  <ListItemText primary={item} /> 
+                </NavLink>
+              </ListItemButton>
+            </ListItem>
+          ))
+        ): (
+          <ListItem key={'Logout'} disablePadding>
+            <ListItemButton onClick={()=>Auth.logout()} sx={{ textAlign: 'center' }}> 
+              <ListItemText primary={'Logout'} /> 
             </ListItemButton>
           </ListItem>
-        ))}
+        )}
       </List>
     </Box>
   );
@@ -71,11 +82,18 @@ function Header(props) {
            EXPLOSIVE TIC TAC TOE
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-             <NavLink to={item}>  <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button> </NavLink>
-            ))}
+          {!Auth.loggedIn() ? (
+            navItems.map((item) => (
+              <NavLink to={item}>  
+                <Button key={item} sx={{ color: '#fff' }}>
+                  {item}
+                </Button> 
+              </NavLink>))
+          ): (
+            <Button key={'Logout'} sx={{ color: '#fff' }} onClick={()=>Auth.logout()}>
+                  Logout
+            </Button>
+          )}
           </Box>
         </Toolbar>
        
