@@ -20,7 +20,7 @@ export default function Chat(props) {
 
     const sendMessage = (e) => {
         e.preventDefault();
-        if (input) {
+        if (input.message) {
             setMessages((prevMessages) => [input, ...prevMessages]);
             socket.emit('sendMessage', { message: input, room: room })
         }
