@@ -67,7 +67,7 @@ function Header(props) {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'block', sm: 'block' } }}
-            fontFamily="Bangers" fontSize="60px">
+            fontFamily="Bangers" fontSize="50px">
            EXPLOSIVE TIC TAC TOE
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>

@@ -43,7 +43,7 @@ function LoginForm (props) {
     };
     
     return (
-        <Box component="main" sx={{  flexGrow: 1, py: 15,  }}>
+        <Box component="main" sx={{  flexGrow: 1, py: 15, background:"#EDEDED", height: "100vh" }}>
           {Auth.loggedIn() && (<Navigate to='/' replace={true} />)}
           {data ? (
             <p>
