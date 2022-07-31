@@ -43,7 +43,7 @@ function LoginForm (props) {
     };
     
     return (
-        <Box component="main" sx={{  flexGrow: 1, py: 15, background:"#EDEDED", height: "100vh" }}>
+        <Box component="main" sx={{  flexGrow: 1,  py: 15, background:"#EDEDED", height: "100vh" }}>
           {Auth.loggedIn() && (<Navigate to='/' replace={true} />)}
           {data ? (
             <p>
@@ -74,7 +74,7 @@ function LoginForm (props) {
                   style={{ cursor: 'pointer' }}
                   type="submit"
                   >
-                  Submit
+                  LOG IN
                 </button>
               </form>
               {errMsg && <h4 style={{ color: 'red' }}>{errMsg}</h4>}

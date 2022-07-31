@@ -84,7 +84,7 @@ export default function SignUpForm() {
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
-                  Submit
+                  SIGN UP
                 </button>
               </form>
             )}
