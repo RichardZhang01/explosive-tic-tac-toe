@@ -4,17 +4,18 @@ import Box from "@mui/material/Box";
 import "../../assets/styles/TicTacGame.css";
 
 const TicTacGame = (props) => {
-  const [turn, setTurn] = useState("X");
+  // const [turn, setTurn] = useState("X");
   const [spaces, setSpaces] = useState(Array(9).fill(""));
-  const [winner, setWinner] = useState(false);
+  const [winner, setWinner] = useState('');
+  const refWinner = useRef('');
   const [tie, setTie] = useState(false);
   const [isPlayerX, setIsPlayerX] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [hasGameEnded, setHasGameEnded] = useState(false);
   const socket = useContext(SocketContext);
   const refPlayerX = useRef(isPlayerX);
   const username = props.user.user.username;
-  //const [inPlay, setInPlay]= useState(true);
   console.log(
     `isPlayerX: ${isPlayerX}, hasGameStarted: ${hasGameStarted}, isTurn: ${isTurn}`
   );
@@ -28,8 +29,7 @@ const TicTacGame = (props) => {
       }
     });
   }, []);
-
-
+   
   useEffect(() => {
     socket.on("startGame", (response) => {
       console.log(response);
@@ -39,8 +39,23 @@ const TicTacGame = (props) => {
       }
       setHasGameStarted(true);
     });
-  }, [socket]);
 
+    socket.on("recieveTurn", (tileClicked) => {
+      setIsTurn(true);
+      let squares = [...spaces];
+      if(refPlayerX.current) {
+        squares[tileClicked] = 'O';
+      } else {
+        squares[tileClicked] = 'X';
+      }
+      setSpaces(squares);
+      checkWinner(squares);
+      if (!refWinner.current){
+        checkTie();
+      }
+    });
+  }, [socket, spaces]);
+  
   const checkWinner = (squares) => {
     let winCombos = {
       horizontal: [
@@ -75,14 +90,16 @@ const TicTacGame = (props) => {
         ) {
           //Winner is decided Logic (Game finished)
           setHasGameStarted(false);
+          setHasGameEnded(true);
           setWinner(squares[pattern[0]]);
+          refWinner.current = squares[pattern[0]]
         }
       });
     }
   };
 
-  const checkTie =()=>{
-    let moves=0;
+  const checkTie = () => {
+    let moves = 0;
           for (let i = 0; i < spaces.length; i++) {
             if (spaces[i] === "") {
               moves+=1;
@@ -92,6 +109,7 @@ const TicTacGame = (props) => {
           if(moves===1) {
             setTie(true);
             setHasGameStarted(false);
+            setHasGameEnded(true);
           }
   }
 
@@ -102,21 +120,22 @@ const TicTacGame = (props) => {
         return;
       }
       let squares = [...spaces];
-      if (turn === "X") {
+      if (isPlayerX) {
         // props.mindoroHandler(true)
         // props.corregidorHandler(false)
         squares[num] = "X";
-        setTurn("O");
+        setIsTurn(false);
+        socket.emit('passTurn', { tileClicked: num, roomNum: props.room })
       } else {
         // props.mindoroHandler(false);
         // props.corregidorHandler(true);
         squares[num] = "O";
-        setTurn("X");
+        setIsTurn(false);
+        socket.emit('passTurn', { tileClicked: num, roomNum: props.room })
       }
-      checkWinner(squares);
       setSpaces(squares);
-      console.log(winner);
-      if (!winner){
+      checkWinner(squares);
+      if (!refWinner.current){
         checkTie();
       }
     }
@@ -139,10 +158,11 @@ const TicTacGame = (props) => {
     setWinner(null);
     setTie(false);
     setSpaces(Array(9).fill(""));
+    refWinner.current = '';
+    setHasGameEnded(false);
   };
 
   //Game is either a tied or ongoing
-  if (tie) {
     return (
       //Change layout as needed
       <Box
@@ -176,61 +196,19 @@ const TicTacGame = (props) => {
             </tbody>
           </table>
           {tie && (
-            <>
               <h3 className="tie">The game is a tie!</h3>
-              <button className="btn" onClick={() => handleRestart()}>
-                Play Again?
-              </button>
-            </>
           )}
-        </div>
-      </Box>
-    );
-  } else {
-    return (
-      //Change layout as needed
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, background: "#EDEDED", height: "100vh" }}
-      >
-        <div className="container">
-          <div className="gameSettings">
-            <h1>{`Your room ID is: ${props.room}`}</h1>
-            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
-            {!hasGameStarted && <h3>Waiting for opponent...</h3>}
-          </div>
-
-          <table>
-            <tbody>
-              <tr>
-                <Space num={0} />
-                <Space num={1} />
-                <Space num={2} />
-              </tr>
-              <tr>
-                <Space num={3} />
-                <Space num={4} />
-                <Space num={5} />
-              </tr>
-              <tr>
-                <Space num={6} />
-                <Space num={7} />
-                <Space num={8} />
-              </tr>
-            </tbody>
-          </table>
           {winner && (
-            <>
               <h3 className="winner">{winner} is the winner!</h3>
-              <button className="btn" onClick={() => handleRestart()}>
-                Play Again?
-              </button>
-            </>
+          )}
+          {hasGameEnded &&(
+            <button className="btn" onClick={() => handleRestart()}>
+              Play Again?
+            </button>
           )}
         </div>
       </Box>
     );
-  }
 };
 
 export default TicTacGame;

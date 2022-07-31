@@ -114,5 +114,10 @@ db.once('open', () => {
       }
     });
 
+    socket.on('passTurn', ({ tileClicked, roomNum }) => {
+      console.log('tileclicked:', tileClicked);
+      socket.to(roomNum).emit('recieveTurn', tileClicked);
+    }) 
+
   });
 });
