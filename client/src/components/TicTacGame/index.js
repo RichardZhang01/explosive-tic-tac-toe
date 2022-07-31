@@ -1,11 +1,38 @@
-import React from 'react'
-import {useState} from "react"
+import React, { useState, useEffect, useContext, useRef } from 'react'
+import { SocketContext } from '../../utils/socket'
 import Box from '@mui/material/Box';
 
 const TicTacGame = (props) => {
     const [turn, setTurn] = useState('X');
     const [spaces, setSpaces] = useState(Array(9).fill(''));
-    const [winner, setWinner]= useState();
+    const [winner, setWinner]= useState(null);
+    const [isPlayerX, setIsPlayerX]= useState(false);
+    const [isTurn, setIsTurn] = useState(false);
+    const [hasGameStarted, setHasGameStarted] = useState(false);
+    const socket = useContext(SocketContext);
+    const refPlayerX = useRef(isPlayerX)
+    console.log(`isPlayerX: ${isPlayerX}, hasGameStarted: ${hasGameStarted}, isTurn: ${isTurn}`);
+
+    useEffect(() => {
+        socket.emit('checkRoom', props.room, (response) => {
+            console.log('checking room state...');
+            if (response.player === 'X') {
+                refPlayerX.current = true;
+                setIsPlayerX(true);
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        socket.on('startGame', (response) => {
+            console.log(response);
+            console.log('isplayerX:', refPlayerX.current);
+            if (refPlayerX.current) {
+                setIsTurn(true);
+            }
+            setHasGameStarted(true);
+        });
+    }, [socket])
 
     const checkWinner=(squares) =>{
         let winCombos = {
@@ -45,24 +72,26 @@ const TicTacGame = (props) => {
 
     //Add Explosion Logic
     const handleClick=(num)=>{
-        if(spaces[num]!==""){
-            return
+        if (isTurn && hasGameStarted) {
+            if(spaces[num]!==""){
+                return
+            }
+            let squares=[...spaces]
+            if(turn==="X"){
+                // props.mindoroHandler(true)
+                // props.corregidorHandler(false)
+                squares[num]="X"
+                setTurn("O")
+            }
+            else{
+                // props.mindoroHandler(false);
+                // props.corregidorHandler(true);
+                squares[num]="O"
+                setTurn("X")
+            }
+            checkWinner(squares)
+            setSpaces(squares)
         }
-        let squares=[...spaces]
-        if(turn==="X"){
-            props.mindoroHandler(true)
-            props.corregidorHandler(false)
-            squares[num]="X"
-            setTurn("O")
-        }
-        else{
-            props.mindoroHandler(false);
-            props.corregidorHandler(true);
-            squares[num]="O"
-            setTurn("X")
-        }
-        checkWinner(squares)
-        setSpaces(squares)
     };
 
     const Space=({num})=>{
@@ -80,7 +109,9 @@ const TicTacGame = (props) => {
         <div className='container'>
             <div>
                 <h1>{`Your room ID is: ${props.room}`}</h1>
-               <h3>Are you ready for your game?</h3>
+                {isPlayerX ? <h2>You are player X</h2> : <h2>You are player Y</h2>}
+                {hasGameStarted ? <h3>Game Start!</h3> : <h3>Waiting for opponent...</h3>}
+                {/* <h3>Are you ready for your game?</h3> */}
             </div>
             
             <table>

@@ -64,7 +64,8 @@ export default function Chat(props) {
                                 <p 
                                     className='chat--message' 
                                     style={{
-                                        alignSelf: `${isUser ? 'start' : 'end'}`, 
+                                        alignSelf: `${isUser ? 'start' : 'end'}`,
+                                        textAlign: `${isUser ? 'left' : 'right'}`, 
                                     }}
                                 >
                                     {message.message}
@@ -72,7 +73,8 @@ export default function Chat(props) {
                                 <p 
                                     className='chat--message--user' 
                                     style={{
-                                        alignSelf: `${isUser ? 'start' : 'end'}`, 
+                                        alignSelf: `${isUser ? 'start' : 'end'}`,
+                                        textAlign: `${isUser ? 'left' : 'right'}`, 
                                     }}
                                 >
                                     {isUser ? 'You' : message.user}, {message.time}
