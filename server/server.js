@@ -68,8 +68,8 @@ db.once('open', () => {
     console.log(`user connected: ${socket.id}`);
 
     socket.on('joinRoom', (roomNum, callback) => {
-      console.log(roomNum);
-      console.log(io.sockets.adapter.rooms.get(roomNum)?.size || 0);
+      console.log('joinroom event, roomnum:', roomNum);
+      console.log('joinroom event, numInRoom:', io.sockets.adapter.rooms.get(roomNum)?.size || 0);
       const numInRoom = io.sockets.adapter.rooms.get(roomNum)?.size || 0;
       if (numInRoom <= 1) {
         socket.join(roomNum.toString());
@@ -84,9 +84,26 @@ db.once('open', () => {
       };
     });
   
-    socket.on("sendMessage", (data) => {
+    socket.on('sendMessage', (data) => {
       console.log(data);
-      socket.to(data.room).emit("recieveMessage", data.message);
+      socket.to(data.room).emit('recieveMessage', data.message);
+    });
+
+    socket.on('checkRoom', (roomNum, callback) => {
+      const numInRoom = io.sockets.adapter.rooms.get(roomNum)?.size;
+      console.log('checkRoom event, numInRoom:', numInRoom);
+      if (numInRoom === 1) {
+        socket.join(roomNum.toString());
+        callback({
+          player: "X"
+        });
+      };
+      if (numInRoom === 2) {
+        callback({
+          player: "Y"
+        });
+        io.to(roomNum).emit('startGame', 'start')
+      }      
     });
 
   });

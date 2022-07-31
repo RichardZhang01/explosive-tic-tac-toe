@@ -23,18 +23,19 @@ export default function Game() {
     }
 
     return (
-        
-        <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
-            {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
-            <TicTacGame 
-                room={roomId}
-                user={user} 
-                mindoroHandler={setIsMindoro} 
-                corregidorHandler={setIsCorregidor}
-            />
+        <div>
+            <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
+                {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
+                <TicTacGame 
+                    room={roomId}
+                    user={user} 
+                    setIsMindoro={setIsMindoro} 
+                    setIsCorregidor={setIsCorregidor}
+                />
+                <Chat room={roomId} user={user} />
+            </div>
             {isMindoro && <Mindoro size={500} delay={0} repeatDelay={0} repeat={0} />}
             {isCorregidor && <Corregidor size={500} color="blue" delay={0} repeatDelay={0} repeat={0} />}
-            <Chat room={roomId} user={user} />
         </div>
     )
 }
