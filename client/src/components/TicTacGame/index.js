@@ -13,13 +13,14 @@ const TicTacGame = (props) => {
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const socket = useContext(SocketContext);
   const refPlayerX = useRef(isPlayerX);
+  const username = props.user.user.username;
   //const [inPlay, setInPlay]= useState(true);
   console.log(
     `isPlayerX: ${isPlayerX}, hasGameStarted: ${hasGameStarted}, isTurn: ${isTurn}`
   );
 
   useEffect(() => {
-    socket.emit("checkRoom", props.room, (response) => {
+    socket.emit("checkRoom", props.room, username, (response) => {
       console.log("checking room state...");
       if (response.player === "X") {
         refPlayerX.current = true;
@@ -153,7 +154,6 @@ const TicTacGame = (props) => {
             <h1>{`Your room ID is: ${props.room}`}</h1>
             {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
             {!hasGameStarted && <h3>Waiting for opponent...</h3>}
-            )}
           </div>
 
           <table>
