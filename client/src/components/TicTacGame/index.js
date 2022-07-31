@@ -28,6 +28,7 @@ const TicTacGame = (props) => {
     });
   }, []);
 
+
   useEffect(() => {
     socket.on("startGame", (response) => {
       console.log(response);
@@ -150,11 +151,8 @@ const TicTacGame = (props) => {
         <div className="container">
           <div className="gameSettings">
             <h1>{`Your room ID is: ${props.room}`}</h1>
-            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player Y</h2>}
-            {hasGameStarted ? (
-              <h3>Game Start!</h3>
-            ) : (
-              <h3>Waiting for opponent...</h3>
+            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
+            {!hasGameStarted && <h3>Waiting for opponent...</h3>}
             )}
           </div>
 
@@ -198,12 +196,8 @@ const TicTacGame = (props) => {
         <div className="container">
           <div className="gameSettings">
             <h1>{`Your room ID is: ${props.room}`}</h1>
-            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player Y</h2>}
-            {hasGameStarted ? (
-              <h3>Game Start!</h3>
-            ) : (
-              <h3>Waiting for opponent...</h3>
-            )}
+            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
+            {!hasGameStarted && <h3>Waiting for opponent...</h3>}
           </div>
 
           <table>
