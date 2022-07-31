@@ -16,6 +16,10 @@ import Profile from './pages/Profile'
 import Game from './pages/Game'
 import Home from './pages/Home'
 import OOB from './pages/OOB'
+import theme from './assets/styles/Styles.js'
+//Create MUI Theme
+import { ThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -38,9 +42,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+ 
 function App() {
   return (
-    <ApolloProvider client={client}>
+   <ThemeProvider theme={theme}>
+    <CssBaseline/>
+   <ApolloProvider client={client}>
       <SocketContext.Provider value={socket}>
         <Router>
           <Header/>
@@ -74,6 +82,7 @@ function App() {
         </Router>
       </SocketContext.Provider>
     </ApolloProvider>
+    </ThemeProvider>
   );
 }
 
