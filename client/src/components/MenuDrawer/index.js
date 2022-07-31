@@ -18,6 +18,7 @@ const MenuDrawer = () => {
               <ListItemText>
               {!Auth.loggedIn() ? (
                 <div>
+                  {console.log(Auth.loggedIn)}
                   <Link
                     to='/login'
                   > 
