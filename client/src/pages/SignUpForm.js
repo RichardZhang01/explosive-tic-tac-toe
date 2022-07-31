@@ -47,7 +47,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED" }}>
+    <Box component="main" sx={{  flexGrow: 1, py: 15,  background:"#EDEDED", height: "100vh"}}>
     {data ? (
               <p>
                 Success! You may now head{' '}
