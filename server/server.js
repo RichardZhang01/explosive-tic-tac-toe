@@ -107,7 +107,7 @@ db.once('open', () => {
       };
       if (numInRoom === 2) {
         callback({
-          player: "Y"
+          player: "O"
         });
         io.to(roomNum).emit('startGame', 'start');
         io.to(roomNum).emit('recieveMessage', { user: 'server', time: time, message: `Let the game begin!`}); 
