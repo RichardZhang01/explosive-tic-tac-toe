@@ -117,7 +117,19 @@ db.once('open', () => {
     socket.on('passTurn', ({ tileClicked, roomNum }) => {
       console.log('tileclicked:', tileClicked);
       socket.to(roomNum).emit('recieveTurn', tileClicked);
-    }) 
+    });
+    
+    socket.on('checkRestart', (roomNum) => {
+      console.log('checking restart in room:', roomNum);
+      socket.to(roomNum).emit('confirmRestart', roomNum)
+    });
+
+    socket.on('relayRestart', (roomNum, ConfirmRestarted) => {
+      console.log('relayRestart:', roomNum, ConfirmRestarted);
+      if (ConfirmRestarted) {
+        io.to(roomNum).emit('restartGame', 'restart');
+      };
+    })
 
   });
 });
