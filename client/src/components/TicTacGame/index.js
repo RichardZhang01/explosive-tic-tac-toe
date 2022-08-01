@@ -6,6 +6,7 @@ import "../../assets/styles/TicTacGame.css";
 import { useMutation } from '@apollo/client';
 import { UPDATE_SCORE } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
+import { textAlign } from "@mui/system";
 
 const TicTacGame = (props) => {
   const [spaces, setSpaces] = useState(Array(9).fill(""));
@@ -226,7 +227,7 @@ const TicTacGame = (props) => {
   const Space = ({ num }) => {
     return (
       <td
-        style={{ border: "2px solid black", width: "100px", height: "100px" }}
+        style={{ border: "2px solid black", width: "100px", height: "100px", textAlign: 'center', fontSize: '3rem'}}
         onClick={() => handleClick(num)}
       >
         {spaces[num]}
