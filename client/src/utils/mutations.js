@@ -29,3 +29,14 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const UPDATE_SCORE = gql`
+  mutation updateScore($username: String!, $wtl: String!) {
+  updateScore(username: $username, wtl: $wtl) {
+    username
+    wins
+    ties
+    losses
+  }
+}
+`;

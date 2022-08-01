@@ -3,8 +3,12 @@ import { SocketContext } from "../../utils/socket";
 import Box from "@mui/material/Box";
 import "../../assets/styles/TicTacGame.css";
 
+import { useMutation } from '@apollo/client';
+import { UPDATE_SCORE } from '../../utils/mutations';
+import { QUERY_USER } from '../../utils/queries';
+import { textAlign } from "@mui/system";
+
 const TicTacGame = (props) => {
-  // const [turn, setTurn] = useState("X");
   const [spaces, setSpaces] = useState(Array(9).fill(""));
   const [winner, setWinner] = useState('');
   const [tie, setTie] = useState(false);
@@ -13,17 +17,36 @@ const TicTacGame = (props) => {
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameEnded, setHasGameEnded] = useState(false);
   const [restartClicked, setRestartClicked] = useState(false);
+  const [toggleCurrentScore, setToggleCurrentScore] = useState(true);
+  const [currentWins, setCurrentWins] = useState(0);
+  const [currentLosses, setCurrentLosses] = useState(0);
+  const [currentTies, setCurrentTies] = useState(0);
   const refWinner = useRef('');
   const refPlayerX = useRef(isPlayerX);
   const refRestartClicked = useRef(false);
   const refSpaces = useRef(spaces);
   const socket = useContext(SocketContext);
+  const user = props.user.user;
   const username = props.user.user.username;
   const roomNum = props.room;
 
+  const [updateScore, { error }] = useMutation(UPDATE_SCORE, {
+    update(cache, { data: { updateScore } }) {
+      try {
+        const { user } = cache.readQuery({ query: QUERY_USER });
+
+        cache.writeQuery({
+          query: QUERY_USER,
+          data: { user: { ...user, ...updateScore }}
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  });
+
   useEffect(() => {
     socket.emit("checkRoom", roomNum, username, (response) => {
-      console.log("checking room state...");
       if (response.player === "X") {
         refPlayerX.current = true;
         setIsPlayerX(true);
@@ -33,8 +56,6 @@ const TicTacGame = (props) => {
    
   useEffect(() => {
     socket.on("startGame", (response) => {
-      console.log(response);
-      console.log("isplayerX:", refPlayerX.current);
       if (refPlayerX.current) {
         setIsTurn(true);
       }
@@ -58,12 +79,10 @@ const TicTacGame = (props) => {
     });
 
     socket.on('confirmRestart', (roomNum) => {
-        console.log('confirming restart in room:', roomNum);
         socket.emit('relayRestart', roomNum, refRestartClicked.current);
     });
 
     socket.on('restartGame', (message) => {
-        console.log('restart?:', message);
         refWinner.current = '';
         refSpaces.current = Array(9).fill("");
         refRestartClicked.current = false;
@@ -75,8 +94,48 @@ const TicTacGame = (props) => {
         setSpaces(Array(9).fill(""));
         setHasGameEnded(false);
         setRestartClicked(false);
+        if (refPlayerX.current) {
+          setIsTurn(true);
+        } else {
+          setIsTurn(false);
+        }
     });
   }, [socket]);
+
+  const updateWinner = async () => {
+
+    const wtl = () => {
+      if (refPlayerX.current && refWinner.current === 'X') {
+        return 'wins'
+      } else if (!refPlayerX.current && refWinner.current === 'O') {
+        return 'wins'
+      } else if (refPlayerX.current && refWinner.current === 'O') {
+        return 'losses'
+      } else if (!refPlayerX.current && refWinner.current === 'X') {
+        return 'losses'
+      } else {
+        return 'ties'
+      }
+    }
+
+    try {
+      const {data} = await updateScore({
+        variables: { username: username, wtl: wtl() }
+      })
+    } catch (err) {
+      console.log(err)
+    }
+
+    if (wtl() === 'wins') {
+      setCurrentWins(prevWins => prevWins + 1);
+    } else if (wtl() === 'losses') {
+      setCurrentLosses(prevLosses => prevLosses + 1);
+    } else {
+      setCurrentTies(prevTies => prevTies + 1);
+
+    }
+
+  }
   
   const checkWinner = (squares) => {
     let winCombos = {
@@ -114,7 +173,8 @@ const TicTacGame = (props) => {
           setHasGameStarted(false);
           setHasGameEnded(true);
           setWinner(squares[pattern[0]]);
-          refWinner.current = squares[pattern[0]]
+          refWinner.current = squares[pattern[0]];
+          updateWinner();
         }
       });
     }
@@ -122,16 +182,16 @@ const TicTacGame = (props) => {
 
   const checkTie = () => {
     let moves = 0;
-          for (let i = 0; i < spaces.length; i++) {
-            if (spaces[i] === "") {
+          for (let i = 0; i < refSpaces.current.length; i++) {
+            if (refSpaces.current[i] === "") {
               moves+=1;
             }
           }
-          console.log(moves)
-          if(moves===1) {
+          if(moves===0) {
             setTie(true);
             setHasGameEnded(true);
             setHasGameStarted(false);
+            updateWinner();
           }
   }
 
@@ -167,7 +227,7 @@ const TicTacGame = (props) => {
   const Space = ({ num }) => {
     return (
       <td
-        style={{ border: "2px solid black", width: "100px", height: "100px" }}
+        style={{ border: "2px solid black", width: "100px", height: "100px", textAlign: 'center', fontSize: '3rem'}}
         onClick={() => handleClick(num)}
       >
         {spaces[num]}
@@ -194,6 +254,30 @@ const TicTacGame = (props) => {
                 <div className="gameSettings">
                     <h1>{`Your room ID is: ${roomNum}`}</h1>
                     {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
+                    {toggleCurrentScore ?
+                      <>
+                        <h3>
+                          Session score
+                        </h3>
+                        <p style={{ textAlign: "center" }}>
+                          {`Wins: ${currentWins}, Losses: ${currentLosses}, Ties: ${currentTies}`}
+                        </p>
+                      </> 
+                      :
+                      <>
+                        <h3>
+                          All-time score
+                        </h3>
+                        <p style={{ textAlign: "center" }}>
+                          {`Wins: ${user.wins || 0}, Losses: ${user.losses || 0}, Ties: ${user.ties || 0}`}
+                        </p>
+                      </> 
+                    }
+                    <button 
+                      onClick={() => setToggleCurrentScore(prev => !prev)}
+                    >
+                      Toggle Score
+                    </button>
                 </div>
 
                 <table>
