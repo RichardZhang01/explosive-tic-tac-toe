@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import Auth from '../../utils/auth'
 
 
@@ -48,11 +48,20 @@ function Header(props) {
             </ListItem>
           ))
         ): (
-          <ListItem key={'Logout'} disablePadding>
-            <ListItemButton onClick={()=>Auth.logout()} sx={{ textAlign: 'center' }}> 
-              <ListItemText primary={'Logout'} /> 
-            </ListItemButton>
-          </ListItem>
+          <>
+            <ListItem key={'Profile'} disablePadding>
+              <ListItemButton sx={{ textAlign: 'center' }}>
+                <NavLink to={'/profile'}>  
+                  <ListItemText primary={'Profile'} /> 
+                </NavLink>
+              </ListItemButton>
+            </ListItem>
+            <ListItem key={'Logout'} disablePadding>
+              <ListItemButton onClick={()=>Auth.logout()} sx={{ textAlign: 'center' }}> 
+                <ListItemText primary={'Logout'} /> 
+              </ListItemButton>
+            </ListItem>
+          </>
         )}
       </List>
     </Box>
@@ -77,8 +86,11 @@ function Header(props) {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'block', sm: 'block' } }}
-            fontFamily="Bangers" fontSize="50px">
-           EXPLOSIVE TIC TAC TOE
+            fontFamily="Bangers" fontSize="50px"
+          >
+            {/* <Link to='/'> */}
+              EXPLOSIVE TIC TAC TOE
+            {/* </Link> */}
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {!Auth.loggedIn() ? (
@@ -87,11 +99,19 @@ function Header(props) {
                 <Button sx={{ color: '#fff' }}>
                   {item}
                 </Button> 
-              </NavLink>))
+              </NavLink>
+            ))
           ): (
-            <Button key={'Logout'} sx={{ color: '#fff' }} onClick={()=>Auth.logout()}>
-                  Logout
-            </Button>
+            <>
+              <NavLink key={'Profile'} to={'/profile'}>  
+                <Button sx={{ color: '#fff' }}>
+                  {'Profile'}
+                </Button> 
+              </NavLink>
+              <Button key={'Logout'} sx={{ color: '#fff' }} onClick={()=>Auth.logout()}>
+                    Logout
+              </Button>
+            </>
           )}
           </Box>
         </Toolbar>
