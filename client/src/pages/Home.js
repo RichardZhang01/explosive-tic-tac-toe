@@ -60,7 +60,7 @@ export default function Home() {
           </Link> */}
         </div>
       ) : (
-        <div>
+        <div className="gameStartUp">
           {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The room you are trying to join is full</h1>}
           <input 
             placeholder='Room ID'
