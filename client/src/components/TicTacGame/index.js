@@ -7,21 +7,22 @@ const TicTacGame = (props) => {
   // const [turn, setTurn] = useState("X");
   const [spaces, setSpaces] = useState(Array(9).fill(""));
   const [winner, setWinner] = useState('');
-  const refWinner = useRef('');
   const [tie, setTie] = useState(false);
   const [isPlayerX, setIsPlayerX] = useState(false);
   const [isTurn, setIsTurn] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameEnded, setHasGameEnded] = useState(false);
-  const socket = useContext(SocketContext);
+  const [restartClicked, setRestartClicked] = useState(false);
+  const refWinner = useRef('');
   const refPlayerX = useRef(isPlayerX);
+  const refRestartClicked = useRef(false);
+  const refSpaces = useRef(spaces);
+  const socket = useContext(SocketContext);
   const username = props.user.user.username;
-  console.log(
-    `isPlayerX: ${isPlayerX}, hasGameStarted: ${hasGameStarted}, isTurn: ${isTurn}`
-  );
+  const roomNum = props.room;
 
   useEffect(() => {
-    socket.emit("checkRoom", props.room, username, (response) => {
+    socket.emit("checkRoom", roomNum, username, (response) => {
       console.log("checking room state...");
       if (response.player === "X") {
         refPlayerX.current = true;
@@ -42,19 +43,40 @@ const TicTacGame = (props) => {
 
     socket.on("recieveTurn", (tileClicked) => {
       setIsTurn(true);
-      let squares = [...spaces];
+      let squares = [...refSpaces.current];
       if(refPlayerX.current) {
         squares[tileClicked] = 'O';
       } else {
         squares[tileClicked] = 'X';
       }
+      refSpaces.current = squares;
       setSpaces(squares);
       checkWinner(squares);
       if (!refWinner.current){
         checkTie();
       }
     });
-  }, [socket, spaces]);
+
+    socket.on('confirmRestart', (roomNum) => {
+        console.log('confirming restart in room:', roomNum);
+        socket.emit('relayRestart', roomNum, refRestartClicked.current);
+    });
+
+    socket.on('restartGame', (message) => {
+        console.log('restart?:', message);
+        refWinner.current = '';
+        refSpaces.current = Array(9).fill("");
+        refRestartClicked.current = false;
+        refPlayerX.current = !refPlayerX.current;
+        setHasGameStarted(true);
+        setWinner(null);
+        setTie(false);
+        setIsPlayerX(prev => !prev);
+        setSpaces(Array(9).fill(""));
+        setHasGameEnded(false);
+        setRestartClicked(false);
+    });
+  }, [socket]);
   
   const checkWinner = (squares) => {
     let winCombos = {
@@ -108,8 +130,8 @@ const TicTacGame = (props) => {
           console.log(moves)
           if(moves===1) {
             setTie(true);
-            setHasGameStarted(false);
             setHasGameEnded(true);
+            setHasGameStarted(false);
           }
   }
 
@@ -125,14 +147,15 @@ const TicTacGame = (props) => {
         // props.corregidorHandler(false)
         squares[num] = "X";
         setIsTurn(false);
-        socket.emit('passTurn', { tileClicked: num, roomNum: props.room })
+        socket.emit('passTurn', { tileClicked: num, roomNum: roomNum })
       } else {
         // props.mindoroHandler(false);
         // props.corregidorHandler(true);
         squares[num] = "O";
         setIsTurn(false);
-        socket.emit('passTurn', { tileClicked: num, roomNum: props.room })
+        socket.emit('passTurn', { tileClicked: num, roomNum: roomNum })
       }
+      refSpaces.current = squares;
       setSpaces(squares);
       checkWinner(squares);
       if (!refWinner.current){
@@ -154,12 +177,10 @@ const TicTacGame = (props) => {
 
   //Restarting game Logic
   const handleRestart = () => {
-    setHasGameStarted(true);
-    setWinner(null);
-    setTie(false);
-    setSpaces(Array(9).fill(""));
-    refWinner.current = '';
-    setHasGameEnded(false);
+    refRestartClicked.current = true;
+    setRestartClicked(true);
+
+    socket.emit('checkRestart', roomNum);
   };
 
   //Game is either a tied or ongoing
@@ -169,45 +190,50 @@ const TicTacGame = (props) => {
         component="main"
         sx={{ flexGrow: 1, background: "#EDEDED", height: "100vh" }}
       >
-        <div className="container">
-          <div className="gameSettings">
-            <h1>{`Your room ID is: ${props.room}`}</h1>
-            {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
-            {!hasGameStarted && <h3>Waiting for opponent...</h3>}
-          </div>
+            <div className="container">
+                <div className="gameSettings">
+                    <h1>{`Your room ID is: ${roomNum}`}</h1>
+                    {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
+                </div>
 
-          <table>
-            <tbody>
-              <tr>
-                <Space num={0} />
-                <Space num={1} />
-                <Space num={2} />
-              </tr>
-              <tr>
-                <Space num={3} />
-                <Space num={4} />
-                <Space num={5} />
-              </tr>
-              <tr>
-                <Space num={6} />
-                <Space num={7} />
-                <Space num={8} />
-              </tr>
-            </tbody>
-          </table>
-          {tie && (
-              <h3 className="tie">The game is a tie!</h3>
-          )}
-          {winner && (
-              <h3 className="winner">{winner} is the winner!</h3>
-          )}
-          {hasGameEnded &&(
-            <button className="btn" onClick={() => handleRestart()}>
-              Play Again?
-            </button>
-          )}
-        </div>
-      </Box>
+                <table>
+                    <tbody>
+                    <tr>
+                        <Space num={0} />
+                        <Space num={1} />
+                        <Space num={2} />
+                    </tr>
+                    <tr>
+                        <Space num={3} />
+                        <Space num={4} />
+                        <Space num={5} />
+                    </tr>
+                    <tr>
+                        <Space num={6} />
+                        <Space num={7} />
+                        <Space num={8} />
+                    </tr>
+                    </tbody>
+                </table>
+
+                {(!hasGameStarted && !hasGameEnded) && <h3>Waiting for opponent...</h3>}
+                {tie && (
+                    <h3 className="tie">The game is a tie!</h3>
+                )}
+                {winner && (
+                    <h3 className="winner">{winner} is the winner!</h3>
+                )}
+                {hasGameEnded &&(
+                    <button 
+                        className="btn" 
+                        onClick={() => handleRestart()}
+                        disabled={restartClicked}
+                    >
+                        {restartClicked ? 'Waiting for opponent...' : 'Play Again'}
+                    </button>
+                )}
+            </div>
+        </Box>
     );
 };
 
