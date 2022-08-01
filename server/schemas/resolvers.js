@@ -44,6 +44,14 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    updateScore: async (parent, { username, wtl }) => {
+      const updatedUser = await User.findOneAndUpdate(
+        { username },
+        { $inc: { [wtl]: 1 } },
+        { new: true }
+      );
+      return updatedUser;
     }
   }
 };
