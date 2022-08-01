@@ -16,6 +16,10 @@ const TicTacGame = (props) => {
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameEnded, setHasGameEnded] = useState(false);
   const [restartClicked, setRestartClicked] = useState(false);
+  const [toggleCurrentScore, setToggleCurrentScore] = useState(true);
+  const [currentWins, setCurrentWins] = useState(0);
+  const [currentLosses, setCurrentLosses] = useState(0);
+  const [currentTies, setCurrentTies] = useState(0);
   const refWinner = useRef('');
   const refPlayerX = useRef(isPlayerX);
   const refRestartClicked = useRef(false);
@@ -89,6 +93,11 @@ const TicTacGame = (props) => {
         setSpaces(Array(9).fill(""));
         setHasGameEnded(false);
         setRestartClicked(false);
+        if (refPlayerX.current) {
+          setIsTurn(true);
+        } else {
+          setIsTurn(false);
+        }
     });
   }, [socket]);
 
@@ -114,6 +123,15 @@ const TicTacGame = (props) => {
       })
     } catch (err) {
       console.log(err)
+    }
+
+    if (wtl() === 'wins') {
+      setCurrentWins(prevWins => prevWins + 1);
+    } else if (wtl() === 'losses') {
+      setCurrentLosses(prevLosses => prevLosses + 1);
+    } else {
+      setCurrentTies(prevTies => prevTies + 1);
+
     }
 
   }
@@ -235,7 +253,30 @@ const TicTacGame = (props) => {
                 <div className="gameSettings">
                     <h1>{`Your room ID is: ${roomNum}`}</h1>
                     {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
-                    <h3>{`Wins: ${user.wins || 0}, Losses: ${user.losses || 0}, Ties: ${user.ties || 0}`}</h3>
+                    {toggleCurrentScore ?
+                      <>
+                        <h3>
+                          Session score
+                        </h3>
+                        <p style={{ textAlign: "center" }}>
+                          {`Wins: ${currentWins}, Losses: ${currentLosses}, Ties: ${currentTies}`}
+                        </p>
+                      </> 
+                      :
+                      <>
+                        <h3>
+                          All-time score
+                        </h3>
+                        <p style={{ textAlign: "center" }}>
+                          {`Wins: ${user.wins || 0}, Losses: ${user.losses || 0}, Ties: ${user.ties || 0}`}
+                        </p>
+                      </> 
+                    }
+                    <button 
+                      onClick={() => setToggleCurrentScore(prev => !prev)}
+                    >
+                      Toggle Score
+                    </button>
                 </div>
 
                 <table>
