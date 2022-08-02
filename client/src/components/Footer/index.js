@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
+import footer from "../../assets/styles/Footer.css"
 
-export default function Footer() {
-    return (
-        <>
-        </>
-    )
-}
+const Footer = () => (
+  <div className="footer">
+    <p>Explosive Tic-Tac-Toe</p>
+  </div>
+);
+
+export default Footer;

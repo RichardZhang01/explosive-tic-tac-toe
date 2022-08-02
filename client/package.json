@@ -22,7 +22,8 @@
     "react-explode": "^2.0.5",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "styled-components": "^5.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
