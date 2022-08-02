@@ -1,9 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import Auth from '../utils/auth.js';
-import { Link, useNavigate, Navigate } from 'react-router-dom'
-import Game from '../components/TicTacGame';
-import { SocketContext } from '../utils/socket'
-import Box from '@mui/material/Box';
+import { Navigate } from 'react-router-dom'
 import Home from './Home'
 import { useQuery } from '@apollo/client';
 import { QUERY_USER } from '../utils/queries';
