@@ -20,7 +20,8 @@ export default function Home() {
     setRoomId(room);
   };
 
-  const joinGame = () => {
+  const joinGame = (e) => {
+    e.preventDefault();
     setIsFull(false);
     if (roomId) {
       socket.emit('joinRoom', roomId, (response) => {
@@ -56,16 +57,20 @@ export default function Home() {
       ) : (
         <div className="gameStartUp">
           {isFull && <h1 style={{ backgroundColor: 'red', color: 'white' }}>The room you are trying to join is full</h1>}
-          <input 
-            placeholder='Room ID'
-            name='roomId'
-            type='text'
-            id='roomId'
-            onChange={changeHandler}
-          />
-          <button onClick={joinGame}>
-            Join Game
-          </button>
+          <form onSubmit={joinGame}>
+            <input 
+              placeholder='Room ID'
+              name='roomId'
+              type='text'
+              id='roomId'
+              onChange={changeHandler}
+            />
+            <input
+              type='submit'
+              value='Join Game'
+            >
+            </input>
+          </form>
           <button onClick={createGame}>
             Create Game
           </button>
