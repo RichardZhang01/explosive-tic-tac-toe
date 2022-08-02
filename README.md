@@ -38,7 +38,7 @@ To install dependencies, open in [Visual Studio Code](https://code.visualstudio.
 
 Alternatively, once the application is installed and opened in Visual Studio Code, or navigated to using Git Bash (or similar command-line tool), run: 
 
-      npm start 
+      npm run app 
 
 The application runs locally on port 3000.
 
@@ -50,7 +50,7 @@ Once the server has been started, in your browser, navigate to http://localhost:
 
 some screenshots:
 
-![explosions2](https://user-images.githubusercontent.com/44784107/182419671-5029e469-3ae8-43ff-9e65-a09840521fac.jpg)
+![explosions2](https://user-images.githubusercontent.com/103669652/182457122-cc8a5d45-f3e7-4e40-a698-6317dc002f23.png)
 
 ![image](https://user-images.githubusercontent.com/44784107/182418373-d526a8ba-8048-4df4-9530-160dae1332c3.png)
 
