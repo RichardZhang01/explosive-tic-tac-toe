@@ -6,13 +6,15 @@ export default function Chat(props) {
     const user = props.user.user;
     const room = props.room;
     const date = new Date();
-    const time = date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+    function time() {
+        return date.toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+        });
+    }
     const [input, setInput] = useState({
         user: user.username,
-        time: time,
+        time: time(),
         message: ''
     });
     const [messages, setMessages] = useState([]);
@@ -35,13 +37,13 @@ export default function Chat(props) {
     const handleMessage = (e) => {
         const message = e.target.value;
         setInput(prevMessage => {
-            return { ...prevMessage, message: message, time: time}
+            return { ...prevMessage, message: message, time: time()}
         });
     };
 
     useEffect(() => {
         socket.on('recieveMessage', (message) =>{
-            setMessages((prevMessages) => [message, ...prevMessages]);
+            setMessages((prevMessages) => [{...message, time: time()}, ...prevMessages]);
         });
     }, [socket]);
 
