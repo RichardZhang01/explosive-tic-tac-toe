@@ -91,26 +91,21 @@ db.once('open', () => {
 
     socket.on('checkRoom', (roomNum, username, callback) => {
       const numInRoom = io.sockets.adapter.rooms.get(roomNum)?.size;
-      const date = new Date();
-      const time = date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-      })
       console.log('checkRoom event, numInRoom:', numInRoom);
-      io.to(roomNum).emit('recieveMessage', { user: 'server', time: time, message: `A wild ${username} has appeared!`});      
+      io.to(roomNum).emit('recieveMessage', { user: 'server', message: `A wild ${username} has appeared!`});      
       if (numInRoom === 1) {
         socket.join(roomNum.toString());
         callback({
           player: "X"
         });
-        io.to(roomNum).emit('recieveMessage', { user: 'server', time: time, message: `Send the room ID to a friend and have them join your room to begin playing.`});
+        io.to(roomNum).emit('recieveMessage', { user: 'server', message: `Send the room ID to a friend and have them join your room to begin playing.`});
       };
       if (numInRoom === 2) {
         callback({
           player: "O"
         });
         io.to(roomNum).emit('startGame', 'start');
-        io.to(roomNum).emit('recieveMessage', { user: 'server', time: time, message: `Let the game begin!`}); 
+        io.to(roomNum).emit('recieveMessage', { user: 'server', message: `Let the game begin!`}); 
       }
     });
 

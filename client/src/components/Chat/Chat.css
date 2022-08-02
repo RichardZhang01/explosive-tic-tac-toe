@@ -8,7 +8,6 @@
     padding: 5px;
     border: 2px solid rgba(236, 236, 236, 0.699);
     border-radius: 5px;
-    color: rgb(39, 39, 187)
 }
 
 .chat--window {
@@ -53,7 +52,7 @@
 .chat--input {
     padding: 5px;
     text-indent: 5px;
-    max-width: 300px;
+    width: 300px;
 }
 
 .chat--submit {
