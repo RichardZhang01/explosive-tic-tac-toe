@@ -67,6 +67,7 @@ export default function Home() {
             <input
               type='submit'
               value='Join Game'
+              id="joinGameInput"
             >
             </input>
           </form>

@@ -43,7 +43,8 @@ body{
     margin-right: 10px;
     margin-top: 6px; /* Add a top margin */
     margin-bottom: 16px; /* Bottom margin */
-    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
+    white-space: normal;
   }
 
   button{
@@ -55,6 +56,7 @@ body{
     border: none;
     border-radius: 10px;
     cursor: pointer;
+   white-space: normal;
   }
 
   .gameStartUp button{
@@ -67,4 +69,17 @@ body{
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    white-space: normal;
   }
+
+  #joinGameInput{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    white-space: normal;
+  }
+#joinGameInput:hover{
+  opacity: .8;
+}
