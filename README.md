@@ -50,7 +50,7 @@ Once the server has been started, in your browser, navigate to http://localhost:
 
 some screenshots:
 
-![image](https://user-images.githubusercontent.com/44784107/182418136-52b4daf0-f3f4-46d4-bb36-c5bdf8360f05.png)
+![explosions2](https://user-images.githubusercontent.com/44784107/182419671-5029e469-3ae8-43ff-9e65-a09840521fac.jpg)
 
 ![image](https://user-images.githubusercontent.com/44784107/182418373-d526a8ba-8048-4df4-9530-160dae1332c3.png)
 
@@ -78,6 +78,9 @@ If you want to contribute to this project and make it better, your help is very 
 ## <a id="questions"></a>Questions?
 
 Have any questions? Here is a list of our links:
+
 John: [Email](mailto:jon0908776@gmail.com), [Github](https://github.com/JWMedeiros)
+
 Althea: [Email](mailto:altheacarlenehanson@gmail.com), [Github](https://github.com/altheahanson)
+
 Richard: [Email](mailto:richardzhiyuanzhang@gmail.com), [Github](https://github.com/RichardZhang01)
