@@ -21,7 +21,7 @@ export default function Profile() {
     return (
         <>
             {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
-            <h1>{`Hello ${user.username}`}</h1>
+            <h1 style={{marginTop: '100px'}}>{`Hello ${user.username}`}</h1>
             <div>
                 <h3>All-time Statistics</h3>
                 <ul style={{ listStyle: 'none', color: 'white', textAlign: 'center', padding: "0"}}>

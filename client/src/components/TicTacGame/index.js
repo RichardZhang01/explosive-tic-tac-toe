@@ -247,7 +247,7 @@ const TicTacGame = (props) => {
       //Change layout as needed
       <Box
         component="main"
-        sx={{ flexGrow: 1, height: "100vh"}}
+        sx={{ flexGrow: 1, marginBottom: '20px' }}
       >
             <div className="container">
                 <div className="gameSettings">

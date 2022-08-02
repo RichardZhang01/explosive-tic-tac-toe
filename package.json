@@ -4,7 +4,7 @@
   "description": "A real time application that allows users to play tic-tac-toe and chat with a friend",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server --ignore client",
+    "start": "npm run build && concurrently \"cd server && node server.js\" \"cd client && npm start\"",
     "develop": "concurrently \"cd server && npm run develop\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
