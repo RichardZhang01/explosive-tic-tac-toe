@@ -274,7 +274,7 @@ const TicTacGame = (props) => {
                         </p>
                       </> 
                     }
-                    <div style={{ textAlign: "center", justifyContent: "center", display:'flex'}}>
+                    <div style={{ textAlign: "center", justifyContent: "center", display:'flex', marginBottom:'10px'}}>
                     <button 
                       onClick={() => setToggleCurrentScore(prev => !prev)}
                     >
@@ -311,6 +311,7 @@ const TicTacGame = (props) => {
                     <h3 className="winner">{winner} is the winner!</h3>
                 )}
                 {hasGameEnded &&(
+                  <div style={{ textAlign: "center", justifyContent: "center", display:'flex'}}>
                     <button 
                         className="btn" 
                         onClick={() => handleRestart()}
@@ -318,6 +319,7 @@ const TicTacGame = (props) => {
                     >
                         {restartClicked ? 'Waiting for opponent...' : 'Play Again'}
                     </button>
+                  </div>
                 )}
             </div>
         </Box>
