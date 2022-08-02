@@ -1,13 +1,14 @@
 # Explosive Tic-Tac-Toe
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]() 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 
-[![Tech-blog-app-button](https://www.herokucdn.com/deploy/button.svg)]()
+[![Explosive-Tic-Tac-Toe-Link-Button](https://www.herokucdn.com/deploy/button.svg)](https://explosive-tic-tac-toe.herokuapp.com/)
 
 
 ## Description
 
--  
+-  If you have ever wanted the most exciting tic-tac-toe experience of your life, you have come to the right place. This app uses MERN, socket.IO,
+graphQL, apollo server, Bootstrap and Material UI to bring you the most explosive two player game and online chat experience.
 
 ## Table of Contents
 
@@ -20,7 +21,7 @@
 
 ## <a id="installation"></a>Installation
 
-**This application is deployed to Heroku, and you can access it [here]().**
+**This application is deployed to Heroku, and you can access it [here](https://explosive-tic-tac-toe.herokuapp.com/).**
 
 Alternatively, you can clone this repo. 
 
@@ -33,7 +34,7 @@ To install dependencies, open in [Visual Studio Code](https://code.visualstudio.
 
 ## <a id="usage"></a>Usage
 
-**This application is deployed to Heroku, and you can access it [here]().**
+**This application is deployed to Heroku, and you can access it [here](https://explosive-tic-tac-toe.herokuapp.com/).**
 
 Alternatively, once the application is installed and opened in Visual Studio Code, or navigated to using Git Bash (or similar command-line tool), run: 
 
@@ -45,11 +46,14 @@ Once the server has been started, in your browser, navigate to http://localhost:
 
 ## <a id="demonstration"></a> Demonstration
 
-**This application is deployed to Heroku, and you can access it [here]().**
+**This application is deployed to Heroku, and you can access it [here](https://explosive-tic-tac-toe.herokuapp.com/).**
 
 some screenshots:
 
-![Screenshot]()
+![image](https://user-images.githubusercontent.com/44784107/182418136-52b4daf0-f3f4-46d4-bb36-c5bdf8360f05.png)
+
+![image](https://user-images.githubusercontent.com/44784107/182418373-d526a8ba-8048-4df4-9530-160dae1332c3.png)
+
 
 ## <a id="license"></a>License
 
@@ -74,3 +78,6 @@ If you want to contribute to this project and make it better, your help is very 
 ## <a id="questions"></a>Questions?
 
 Have any questions? Here is a list of our links:
+John: [Email](mailto:jon0908776@gmail.com), [Github](https://github.com/JWMedeiros)
+Althea: [Email](mailto:altheacarlenehanson@gmail.com), [Github](https://github.com/altheahanson)
+Richard: [Email](mailto:richardzhiyuanzhang@gmail.com), [Github](https://github.com/RichardZhang01)
