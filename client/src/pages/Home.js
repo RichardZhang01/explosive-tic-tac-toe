@@ -1,11 +1,10 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React, { useState, useContext } from 'react';
 import Auth from '../utils/auth.js';
-import { Link, useNavigate } from 'react-router-dom'
-import Game from '../components/TicTacGame';
+import {useNavigate } from 'react-router-dom'
 import { SocketContext } from '../utils/socket'
 import Box from '@mui/material/Box';
-import home from '../assets/styles/home.css'
+import '../assets/styles/home.css'
 
 
 export default function Home() {
