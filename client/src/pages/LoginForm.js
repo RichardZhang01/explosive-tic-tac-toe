@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Box from '@mui/material/Box';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
