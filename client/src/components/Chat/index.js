@@ -5,8 +5,8 @@ import './Chat.css'
 export default function Chat(props) {
     const user = props.user.user;
     const room = props.room;
-    const date = new Date();
     function time() {
+        const date = new Date();
         return date.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
