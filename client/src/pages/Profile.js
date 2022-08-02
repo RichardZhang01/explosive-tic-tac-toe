@@ -27,7 +27,7 @@ export default function Profile() {
             <h1>{`Hello ${user.username}`}</h1>
             <div>
                 <h3>All-time Statistics</h3>
-                <ul style={{ listStyle: 'none', color: 'white', textAlign: 'center' }}>
+                <ul style={{ listStyle: 'none', color: 'white', textAlign: 'center', padding: "0"}}>
                     <li>{`Wins: ${user.wins || 0}`}</li>
                     <li>{`Ties: ${user.ties || 0}`}</li>
                     <li>{`Losses: ${user.losses || 0}`}</li>
