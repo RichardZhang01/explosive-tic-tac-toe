@@ -1,4 +1,4 @@
-import { createTheme, Typography } from '@mui/material';
+import { createTheme } from '@mui/material';
 
 const Colors = {
     // PRIMARY COLORS
