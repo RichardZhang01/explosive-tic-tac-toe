@@ -6,7 +6,7 @@ import "../../assets/styles/TicTacGame.css";
 import { useMutation } from '@apollo/client';
 import { UPDATE_SCORE } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
-import { textAlign } from "@mui/system";
+//import { textAlign } from "@mui/system";
 
 const TicTacGame = (props) => {
   const [spaces, setSpaces] = useState(Array(9).fill(""));
@@ -227,7 +227,7 @@ const TicTacGame = (props) => {
   const Space = ({ num }) => {
     return (
       <td
-        style={{ border: "2px solid black", width: "100px", height: "100px", textAlign: 'center', fontSize: '3rem'}}
+        style={{ border: "4px groove red", width: "100px", height: "100px", textAlign: 'center', fontSize: '4rem', color:'blueviolet', fontFamily:'Impact'}}
         onClick={() => handleClick(num)}
       >
         {spaces[num]}
@@ -248,18 +248,18 @@ const TicTacGame = (props) => {
       //Change layout as needed
       <Box
         component="main"
-        sx={{ flexGrow: 1, background: "#EDEDED", height: "100vh" }}
+        sx={{ flexGrow: 1, height: "100vh"}}
       >
             <div className="container">
                 <div className="gameSettings">
                     <h1>{`Your room ID is: ${roomNum}`}</h1>
-                    {isPlayerX ? <h2>You are player X</h2> : <h2>You are player O</h2>}
+                    {isPlayerX ? <h2 style={{color:'blueviolet'}}>You are player X</h2> : <h2 style={{color:'blueviolet'}}>You are player O</h2>}
                     {toggleCurrentScore ?
                       <>
                         <h3>
                           Session score
                         </h3>
-                        <p style={{ textAlign: "center" }}>
+                        <p style={{ textAlign: "center", color:'blueviolet' }}>
                           {`Wins: ${currentWins}, Losses: ${currentLosses}, Ties: ${currentTies}`}
                         </p>
                       </> 
@@ -268,7 +268,7 @@ const TicTacGame = (props) => {
                         <h3>
                           All-time score
                         </h3>
-                        <p style={{ textAlign: "center" }}>
+                        <p style={{ textAlign: "center", color:'blueviolet' }}>
                           {`Wins: ${user.wins || 0}, Losses: ${user.losses || 0}, Ties: ${user.ties || 0}`}
                         </p>
                       </> 
@@ -283,19 +283,19 @@ const TicTacGame = (props) => {
                 <table>
                     <tbody>
                     <tr>
-                        <Space num={0} />
-                        <Space num={1} />
-                        <Space num={2} />
+                        <Space num={0} className='text-center'/>
+                        <Space num={1} className='text-center'/>
+                        <Space num={2} className='text-center'/>
                     </tr>
                     <tr>
-                        <Space num={3} />
-                        <Space num={4} />
-                        <Space num={5} />
+                        <Space num={3} className='text-center'/>
+                        <Space num={4} className='text-center'/>
+                        <Space num={5} className='text-center'/>
                     </tr>
                     <tr>
-                        <Space num={6} />
-                        <Space num={7} />
-                        <Space num={8} />
+                        <Space num={6} className='text-center'/>
+                        <Space num={7} className='text-center'/>
+                        <Space num={8} className='text-center'/>
                     </tr>
                     </tbody>
                 </table>

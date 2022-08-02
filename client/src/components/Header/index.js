@@ -108,6 +108,7 @@ function Header(props) {
                   {'Profile'}
                 </Button> 
               </NavLink>
+              &nbsp;
               <Button key={'Logout'} sx={{ color: '#fff' }} onClick={()=>Auth.logout()}>
                     Logout
               </Button>
