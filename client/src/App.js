@@ -9,7 +9,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 import { SocketContext, socket } from './utils/socket';
 import Header from './components/Header';
-import Footer from './components/Footer';
+
 import SignUpForm from './pages/SignUpForm'
 import LoginForm from './pages/LoginForm'
 import Profile from './pages/Profile'
@@ -78,7 +78,7 @@ function App() {
               element={<OOB />}
             />
           </Routes>
-          <Footer/>
+     
         </Router>
       </SocketContext.Provider>
     </ApolloProvider>
