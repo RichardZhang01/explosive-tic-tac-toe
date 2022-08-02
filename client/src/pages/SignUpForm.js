@@ -8,6 +8,7 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 export default function SignUpForm() {
+  const [errMsg, setErrMsg] = useState('')
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -18,6 +19,7 @@ export default function SignUpForm() {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    setErrMsg('');
 
     setFormState({
       ...formState,
@@ -39,7 +41,7 @@ export default function SignUpForm() {
   
         Auth.login(data.addUser.token);
       } catch (e) {
-        console.error(e);
+        setErrMsg(e.message)
       }
     } else {
       alert("Invalid Username or password!");
@@ -88,12 +90,7 @@ export default function SignUpForm() {
                 </button>
               </form>
             )}
-
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
+            {errMsg && <h4 style={{ color: 'red' }}>{errMsg}</h4>}
     </Box>
   );
 }
