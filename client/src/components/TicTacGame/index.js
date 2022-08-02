@@ -6,6 +6,7 @@ import "../../assets/styles/TicTacGame.css";
 import { useMutation } from '@apollo/client';
 import { UPDATE_SCORE } from '../../utils/mutations';
 import { QUERY_USER } from '../../utils/queries';
+import { display } from "@mui/system";
 //import { textAlign } from "@mui/system";
 
 const TicTacGame = (props) => {
@@ -273,11 +274,13 @@ const TicTacGame = (props) => {
                         </p>
                       </> 
                     }
+                    <div style={{ textAlign: "center", justifyContent: "center", display:'flex'}}>
                     <button 
                       onClick={() => setToggleCurrentScore(prev => !prev)}
                     >
                       Toggle Score
                     </button>
+                    </div>
                 </div>
 
                 <table>
