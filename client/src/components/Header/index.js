@@ -13,8 +13,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import Auth from '../../utils/auth'
+import '../../assets/styles/header.css';
 
 
 const drawerWidth = 240;
@@ -38,9 +39,9 @@ function Header(props) {
         {!Auth.loggedIn() ? (
           navItems.map((item) => (
             <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <NavLink to={item}>  
-                  <ListItemText primary={item} /> 
+              <ListItemButton sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
+                <NavLink to={item} style={{ textDecoration: 'none', color: 'black', fontWeight: '100' }}>  
+                  {item}
                 </NavLink>
               </ListItemButton>
             </ListItem>
@@ -48,14 +49,14 @@ function Header(props) {
         ): (
           <>
             <ListItem key={'Profile'} disablePadding>
-              <ListItemButton sx={{ textAlign: 'center' }}>
-                <NavLink to={'/profile'}>  
-                  <ListItemText primary={'Profile'} /> 
+              <ListItemButton sx={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>
+                <NavLink to={'/profile'} style={{ textDecoration: 'none', color: 'black', fontWeight: '100' }}>  
+                  Profile
                 </NavLink>
               </ListItemButton>
             </ListItem>
             <ListItem key={'Logout'} disablePadding>
-              <ListItemButton onClick={()=>Auth.logout()} sx={{ textAlign: 'center' }}> 
+              <ListItemButton onClick={()=>Auth.logout()} sx={{ textAlign: 'center', fontWeight: '100' }}> 
                 <ListItemText primary={'Logout'} /> 
               </ListItemButton>
             </ListItem>
@@ -85,10 +86,11 @@ function Header(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'block', sm: 'block' } }}
             fontFamily="Bangers" fontSize="50px"
+            id="header--text"
           >
-            {/* <Link to='/'> */}
+            <Link to='/' style={{ textDecoration: 'none', color: 'white', fontWeight: '100' }}>
               EXPLOSIVE TIC TAC TOE
-            {/* </Link> */}
+            </Link>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
           {!Auth.loggedIn() ? (
@@ -101,8 +103,8 @@ function Header(props) {
             ))
           ): (
             <>
-              <NavLink key={'Profile'} to={'/profile'}>  
-                <Button sx={{ color: '#fff' }}>
+              <NavLink key={'Profile'} to={'/profile'} style={{ textDecoration: 'none' }}>  
+                <Button sx={{ color: '#fff' }} >
                   {'Profile'}
                 </Button> 
               </NavLink>
