@@ -1,7 +1,7 @@
 //Conditionally render Main page if not logged in or Game+Messager if logged in
 import React, { useState, useContext } from 'react';
 import Auth from '../utils/auth.js';
-import {useNavigate } from 'react-router-dom'
+import {useNavigate, Link } from 'react-router-dom'
 import { SocketContext } from '../utils/socket'
 import Box from '@mui/material/Box';
 import '../assets/styles/home.css'
@@ -52,6 +52,11 @@ export default function Home() {
           <h1>Welcome to Explosive Tic-Tac-Toe</h1>
           <br/>
           <h3>To get started, please log in or sign up</h3>
+          <Link to='/login' style={{ textDecoration: 'none', color: 'white', fontWeight: '100', display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+              <button>
+                LOG IN
+              </button>
+          </Link>
         </div>
       ) : (
         <div className="gameStartUp">
