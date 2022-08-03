@@ -226,7 +226,7 @@ const TicTacGame = (props) => {
   const Space = ({ num }) => {
     return (
       <td
-        style={{ border: "4px groove red", width: "100px", height: "100px", textAlign: 'center', fontSize: '4rem', color:'blueviolet', fontFamily:'Impact'}}
+        style={{ border: "4px groove red", width: "100px", height: "100px", textAlign: 'center', fontSize: '3.5rem', color:'blueviolet', fontFamily:'Impact'}}
         onClick={() => handleClick(num)}
       >
         {spaces[num]}
