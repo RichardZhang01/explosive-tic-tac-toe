@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,7 +18,7 @@ import '../../assets/styles/header.css';
 
 
 const drawerWidth = 240;
-const navItems = ['login', 'signup'];
+const navItems = ['Login', 'Signup'];
 
 function Header(props) {
   const { window } = props;
