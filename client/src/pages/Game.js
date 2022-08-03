@@ -28,7 +28,7 @@ export default function Game() {
     return (
         <div>
             {!Auth.loggedIn() && <Navigate to='/login' replace={true} />}
-            <div style={{ display: 'flex', alignItems: 'center', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
+            <div style={{ display: 'flex', maxWidth: '1500px', margin: 'auto', marginTop: '100px', flexWrap: 'wrap', justifyContent: 'center'}}>
                 <TicTacGame 
                     room={roomId}
                     user={user} 
